@@ -10,9 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "fsd-django.local", primary: true do |app|
     app.vm.hostname = "fsd-django"
 
-    #app.vm.network "private_network", type: "dhcp"
-    app.vm.network :private_network, ip: "192.168.11.7"
-    app.vm.network "forwarded_port", guest: 22, host: 22223
+    app.vm.network "private_network", type: "dhcp"
   end
 
   config.vm.provider "virtualbox" do |vb|
