@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     'compressor',
     'djcelery',
     'django_extensions',
+    'material',
+    'material.frontend',
 )
 
 MIDDLEWARE = [
