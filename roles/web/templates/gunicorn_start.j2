@@ -30,7 +30,9 @@ test -d $RUNDIR || mkdir -p $RUNDIR
 exec gunicorn \
     --name $NAME \
     --workers $NUM_WORKERS \
+    --reload True \
     --max-requests $MAX_REQUESTS \
+
     --timeout {{ gunicorn_timeout_seconds|default(30) }} \
     --user $USER --group $GROUP \
     --log-level debug \
