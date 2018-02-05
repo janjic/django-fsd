@@ -29,7 +29,6 @@ test -d $RUNDIR || mkdir -p $RUNDIR
 # (do not use --daemon).
 exec gunicorn \
     --name $NAME \
-    --reload=True \
     --workers $NUM_WORKERS \
     --max-requests $MAX_REQUESTS \
     --timeout {{ gunicorn_timeout_seconds|default(30) }} \
