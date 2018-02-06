@@ -136,6 +136,7 @@ STATIC_ROOT = os.getenv('STATIC_ROOT',
                         os.path.join(BASE_DIR, 'collected_static'))
 
 STATIC_URL = '/static/'
+LOGIN_REDIRECT_URL = '/polls/'
 
 # Additional locations of static files.
 STATICFILES_DIRS = (
