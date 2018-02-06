@@ -31,6 +31,11 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = (
+    # material apps
+    'material',
+    'material.frontend',
+    'material.admin',
+
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,10 +47,10 @@ INSTALLED_APPS = (
     # 3rd-party apps.
     'compressor',
     'djcelery',
-    'django_extensions',
-    'material',
-    'material.frontend',
+    'django_extensions'
 )
+
+LOGIN_REDIRECT_URL = '/polls/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,7 +75,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
+                'material.frontend.context_processors.modules',
             ],
+            'builtins': [
+                'material.templatetags.material_form'
+            ],
+            'debug': True,
         },
     },
 ]
