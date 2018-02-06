@@ -2,6 +2,7 @@
 
 - name: Install packages required by the Django app inside virtualenv
   pip: virtualenv={{ virtualenv_path }} requirements={{ requirements_file }}
+  tags: [app]
 
 - name: Run the Django syncdb command
   django_manage:
@@ -11,7 +12,7 @@
     settings: "{{ django_settings_file }}"
   environment: "{{ django_environment }}"
   when: run_django_syncdb is defined and run_django_syncdb
-  tags: django.syncdb
+  tags: [django.syncdb, app]
 
 - name: Run Django database migrations
   django_manage:
@@ -21,7 +22,7 @@
     settings: "{{ django_settings_file }}"
   environment: "{{ django_environment }}"
   when: run_django_db_migrations is defined and run_django_db_migrations
-  tags: django.migrate
+  tags: [django.migrate, app ]
 
 - name: Run Django collectstatic
   django_manage:
@@ -32,4 +33,4 @@
   environment: "{{ django_environment }}"
   when: run_django_collectstatic is defined and run_django_collectstatic
   notify: restart application
-  tags: django.collectstatic
+  tags: [django.collectstatic, app ]

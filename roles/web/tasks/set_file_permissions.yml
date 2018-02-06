@@ -7,3 +7,4 @@
         group={{ gunicorn_group }}
         state=directory
   changed_when: False
+  tags: [django.file.permission, app ]
