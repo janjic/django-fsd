@@ -1,8 +1,51 @@
+from __future__ import unicode_literals
+
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 
+
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+
+@python_2_unicode_compatible
+class Department(models.Model):
+    dept_no = models.CharField(_('code'), primary_key=True, max_length=4)
+    dept_name = models.CharField(_('name'), unique=True, max_length=40)
+
+    class Meta:
+        verbose_name = _('department')
+        verbose_name_plural = _('departments')
+        db_table = 'departments'
+        ordering = ['dept_no']
+
+    def __str__(self):
+        return self.dept_name
+
+@python_2_unicode_compatible
+class Employee(models.Model):
+    emp_no = models.IntegerField(_('employee number'), primary_key=True)
+    birth_date = models.DateField(_('birthday'))
+    first_name = models.CharField(_('first name'), max_length=14)
+    last_name = models.CharField(_('last name'), max_length=16)
+    gender = models.CharField(_('gender'), max_length=1)
+    hire_date = models.DateField(_('hire date'))
+
+    class Meta:
+        verbose_name = _('employee')
+        verbose_name_plural = _('employees')
+        db_table = 'employees'
+
+    def __str__(self):
+        return "{} {}".format(self.first_name, self.last_name)
 
 @python_2_unicode_compatible
 class Ocean(models.Model):

@@ -1,7 +1,6 @@
 from django.apps import AppConfig
-from django.utils.translation import ugettext_lazy as _
-
 from material.frontend.apps import ModuleMixin
+from django.utils.translation import ugettext_lazy as _
 
 
 class PollsConfig(ModuleMixin, AppConfig):
@@ -11,6 +10,3 @@ class PollsConfig(ModuleMixin, AppConfig):
 
     def has_perm(self, user):
         return user.is_superuser
-
-
-
