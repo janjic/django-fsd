@@ -4,8 +4,12 @@ from django.db import models as django
 from django.utils.text import Truncator
 from django.utils.html import mark_safe, format_html
 from django.utils.translation import ugettext_lazy as _
+from import_export.admin import ImportExportModelAdmin
+from import_export import resources
 
 from . import models
+
+from jet.filters import RelatedFieldAjaxListFilter
 
 
 class CountryTabularInline(admin.TabularInline):
@@ -208,3 +212,19 @@ class CityAdmin(admin.ModelAdmin):
             return 1900 <= city.country.independence_day.year <= 2000
     became_independent_in_20_century.short_description = _('became independent in XX century')
     became_independent_in_20_century.boolean = True
+
+
+class CustomerResource(resources.ModelResource):
+
+    class Meta:
+        model = models.City
+        fields = ('nav_cust_name', 'nav_cust_search_name', 'mds_cust_id', 'nav_vat', 'source')
+
+
+@admin.register(models.Customer)
+class CustomerAdmin(ImportExportModelAdmin):
+    icon = '<i class="material-icons">account_balance</i>'
+    search_fields = ('nav_cust_search_name',)
+    resource_class = CustomerResource
+
+

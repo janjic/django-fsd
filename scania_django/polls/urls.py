@@ -10,4 +10,5 @@ urlpatterns = [
     url('^country/', include(views.CountryViewSet().urls)),
     url('^ocean/', include(views.OceanViewSet().urls)),
     url('^sea/', include(views.SeaViewSet().urls)),
+    url('^customer/', include(views.CustomerViewSet().urls)),
 ]

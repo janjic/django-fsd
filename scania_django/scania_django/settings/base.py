@@ -25,15 +25,16 @@ SECRET_KEY = 'br58#u2mw&y0a61y55(+l5#hg0(*&vy2(4&^%*y)z9(u_)budx'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 # Application definition
 
 INSTALLED_APPS = (
 
-    'material',
-    'material.frontend',
-    'material.admin',
-
+    'jet.dashboard',
+    'jet',
+    # 'material',
+    # 'material.frontend',
+    # 'material.admin',
+    'import_export',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,7 +45,7 @@ INSTALLED_APPS = (
 
     # 3rd-party apps.
     'compressor',
-    'djcelery',
+   # 'djcelery',
     'django_extensions',
 )
 
@@ -72,10 +73,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
-                'material.frontend.context_processors.modules',
-            ],
-            'builtins': [
-                'material.templatetags.material_form',
+                #'material.frontend.context_processors.modules',
             ],
             'debug': True,
         },
@@ -137,6 +135,7 @@ STATIC_ROOT = os.getenv('STATIC_ROOT',
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/polls/'
+JET_INDEX_DASHBOARD = 'polls.dashboard.DefaultIndexDashboard'
 
 # Additional locations of static files.
 STATICFILES_DIRS = (
@@ -161,7 +160,7 @@ MEDIA_URL = '/media/'
 
 
 # Celery settings.
-BROKER_URL = os.getenv('BROKER_URL', 'amqp://guest:guest@127.0.0.1//')
-CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
-CELERYD_PREFETCH_MULTIPLIER = 1
-CELERY_ACKS_LATE = True
+# BROKER_URL = os.getenv('BROKER_URL', 'amqp://guest:guest@127.0.0.1//')
+# CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+# CELERYD_PREFETCH_MULTIPLIER = 1
+# CELERY_ACKS_LATE = True

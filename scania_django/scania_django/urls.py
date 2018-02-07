@@ -21,6 +21,8 @@ from django.conf.urls import url
 from material.frontend import urls as frontend_urls
 
 urlpatterns = [
-    url(r'', include(frontend_urls)),
+    url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    # url(r'', include(frontend_urls)),
     path('admin/', admin.site.urls),
 ]

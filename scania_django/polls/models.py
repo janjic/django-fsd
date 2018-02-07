@@ -6,15 +6,18 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
 
+@python_2_unicode_compatible
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
 
+@python_2_unicode_compatible
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+
 
 @python_2_unicode_compatible
 class Department(models.Model):
@@ -29,6 +32,7 @@ class Department(models.Model):
 
     def __str__(self):
         return self.dept_name
+
 
 @python_2_unicode_compatible
 class Employee(models.Model):
@@ -46,6 +50,7 @@ class Employee(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.first_name, self.last_name)
+
 
 @python_2_unicode_compatible
 class Ocean(models.Model):
@@ -157,3 +162,26 @@ class City(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@python_2_unicode_compatible
+class Customer(models.Model):
+    id = models.CharField(primary_key=True, max_length=50, unique=True)
+    nav_cust_name = models.CharField(_('nav_cust_name'), max_length=250)
+    nav_cust_search_name = models.CharField(_('nav_cust_search_name'), max_length=250)
+    mds_cust_id = models.CharField(_('mds_cust_id'), max_length=250)
+    nav_vat = models.CharField(_('nav_vat'), max_length=250, null=True, blank=True)
+    source = models.CharField(_('source'), max_length=3)
+
+    class Meta:
+        verbose_name = _('customer')
+        verbose_name_plural = _('customers')
+        ordering = ['nav_cust_name']
+
+    def __str__(self):
+        return self.nav_cust_name
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return 'nav_cust_name', 'nav_cust_search_name'
+

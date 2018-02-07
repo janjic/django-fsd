@@ -14,6 +14,17 @@
   when: run_django_syncdb is defined and run_django_syncdb
   tags: [django.syncdb, app]
 
+
+- name: Run Django database make migrations
+  django_manage:
+    command: makemigrations
+    app_path: "{{ project_path }}"
+    virtualenv: "{{ virtualenv_path }}"
+    settings: "{{ django_settings_file }}"
+  environment: "{{ django_environment }}"
+  when: run_django_db_migrations is defined and run_django_db_migrations
+  tags: [django.migrate, app ]
+
 - name: Run Django database migrations
   django_manage:
     command: migrate
