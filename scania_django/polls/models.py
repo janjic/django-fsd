@@ -174,7 +174,6 @@ class Customer(models.Model):
     mds_cust_id = models.CharField(_('mds_cust_id'), max_length=250)
     nav_vat = models.CharField(_('nav_vat'), max_length=250, null=True, blank=True)
     source = models.CharField(_('source'), max_length=3)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, editable=False)
 
     class Meta:
         verbose_name = _('customer')
@@ -248,6 +247,7 @@ class Calculation(models.Model):
     agreed_delivery_date = models.DateField(_('agreed delivery date'))
     order_security = models.FloatField(_('order security'))
     date = models.DateField(_("date"), default=datetime.now())
+    salesman = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, editable=False)
     order_stock = models.CharField(
         max_length=5, choices=(
             ('ORDER', 'Order'),

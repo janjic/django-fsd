@@ -226,23 +226,6 @@ class CustomerAdmin(ImportExportModelAdmin):
     icon = '<i class="material-icons">account_balance</i>'
     search_fields = ('nav_cust_search_name',)
     resource_class = CustomerResource
-    exclude = ('owner',)
-
-    def save_model(self, request, obj, form, change):
-        if getattr(obj, 'owner', None) is None:
-            obj.owner = request.user
-        obj.save()
-
-    def get_queryset(self, request):
-        """Limit Pages to those that belong to the request's user."""
-        qs = super(CustomerAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            # It is mine, all mine. Just return everything.
-            return qs
-        # Now we just add an extra filter on the queryset and
-        # we're done. Assumption: Page.owner is a foreignkey
-        # to a User.
-        return qs.filter(owner=request.user)
 
     #
     # def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -258,3 +241,20 @@ class CustomerAdmin(ImportExportModelAdmin):
 @admin.register(models.Calculation)
 class CalculationAdmin(admin.ModelAdmin):
     icon = '<i class="fa fa-building"></i>'
+    readonly_fields = ('salesman',)
+
+    def save_model(self, request, obj, form, change):
+        if getattr(obj, 'salesman', None) is None:
+            obj.salesman = request.user
+        obj.save()
+
+    def get_queryset(self, request):
+        """Limit Pages to those that belong to the request's user."""
+        qs = super(CalculationAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            # It is mine, all mine. Just return everything.
+            return qs
+        # Now we just add an extra filter on the queryset and
+        # we're done. Assumption: Page.owner is a foreignkey
+        # to a User.
+        return qs.filter(salesman=request.user)
