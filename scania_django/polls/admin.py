@@ -227,4 +227,19 @@ class CustomerAdmin(ImportExportModelAdmin):
     search_fields = ('nav_cust_search_name',)
     resource_class = CustomerResource
 
+    # def get_queryset(self, request):
+    #     qs = super().get_queryset(request)
+    #     if request.user.is_superuser:
+    #         return qs
+    #     return qs.filter(author=request.user)
+    #
+    # def formfield_for_foreignkey(self, db_field, request, **kwargs):
+    #     """Limit choices for 'picture' field to only your pictures."""
+    #     if db_field.name == 'picture':
+    #         if not request.user.is_superuser:
+    #             kwargs["queryset"] = Picture.objects.filter(
+    #                 owner=request.user)
+    #     return super(CustomerAdmin, self).formfield_for_foreignkey(
+    #         db_field, request, **kwargs)
+
 
