@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
-
+from django.contrib.auth.models import User
 
 @python_2_unicode_compatible
 class Question(models.Model):
@@ -172,6 +172,7 @@ class Customer(models.Model):
     mds_cust_id = models.CharField(_('mds_cust_id'), max_length=250)
     nav_vat = models.CharField(_('nav_vat'), max_length=250, null=True, blank=True)
     source = models.CharField(_('source'), max_length=3)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, editable=False)
 
     class Meta:
         verbose_name = _('customer')

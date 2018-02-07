@@ -226,12 +226,24 @@ class CustomerAdmin(ImportExportModelAdmin):
     icon = '<i class="material-icons">account_balance</i>'
     search_fields = ('nav_cust_search_name',)
     resource_class = CustomerResource
+    exclude = ('owner',)
 
-    # def get_queryset(self, request):
-    #     qs = super().get_queryset(request)
-    #     if request.user.is_superuser:
-    #         return qs
-    #     return qs.filter(author=request.user)
+    def save_model(self, request, obj, form, change):
+        if getattr(obj, 'owner', None) is None:
+            obj.owner = request.user
+        obj.save()
+
+    def get_queryset(self, request):
+        """Limit Pages to those that belong to the request's user."""
+        qs = super(CustomerAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            # It is mine, all mine. Just return everything.
+            return qs
+        # Now we just add an extra filter on the queryset and
+        # we're done. Assumption: Page.owner is a foreignkey
+        # to a User.
+        return qs.filter(owner=request.user)
+
     #
     # def formfield_for_foreignkey(self, db_field, request, **kwargs):
     #     """Limit choices for 'picture' field to only your pictures."""
