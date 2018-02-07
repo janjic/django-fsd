@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
+from datetime import  datetime
 
 
 @python_2_unicode_compatible
@@ -184,4 +185,74 @@ class Customer(models.Model):
     @staticmethod
     def autocomplete_search_fields():
         return 'nav_cust_name', 'nav_cust_search_name'
+
+@python_2_unicode_compatible
+class Calculation(models.Model):
+    dealer = models.CharField(
+        max_length=2, choices=(
+            ('SI', 'SI'),
+            ('HR', 'HR'),
+            ('BIH', 'BIH'),
+            ('RS', 'RS'),
+            ('MK', 'MK')))
+    email = models.CharField(_('email'), max_length=256)
+    financing = models.CharField(
+        max_length=25, choices=(
+            ('TENDER', 'Tender'),
+            ('SCANIA_CREDIT_LEASING', 'Scania Credit/Leasing'),
+            ('CASH_DEAL', 'Cash Deal'),
+            ('NON_SCANIA_FINANCING', 'Non Scania Financing')))
+    ch_type = models.CharField(_('ch_type'), max_length=256)
+    application = models.CharField(
+        max_length=55, choices=(
+            ('Aerial_platform', 'Aerial platform'),
+            ('Aircraft_catering', 'Aircraft catering'),
+            ('Airport_crash_tender', 'Airport crash tender'),
+            ('Airport_de-icingr', 'Airport de-icing'),
+            ('Airport_refueling', 'Airport refueling'),
+            ('Airport_sweeping', 'Airport sweeping'),
+            ('Bulk_ADR_transport', 'Bulk ADR transport'),
+            ('Bulk_transport', 'Bulk transport'),
+            ('Concrete_mixer', 'Concrete mixer'),
+            ('Concrete_pump', 'Concrete pump'),
+            ('Fire_engine', 'Fire engine'),
+            ('Flatbed_with_crane', 'Flatbed with crane'),
+            ('Fuel_transport', 'Fuel transport'),
+            ('General_cargo_transport', 'General cargo transport'),
+            ('Grain_transport', 'Grain transport'),
+            ('Heavy-haulage_transport', 'Heavy-haulage transport'),
+            ('Hook_lift', 'Hook lift'),
+            ('Livestock_transport', 'Livestock transport'),
+            ('Milk_collection', 'Milk collection'),
+            ('Recovery', 'Recovery'),
+            ('Refuse_collection', 'Refuse collection'),
+            ('Road_sweeping', 'Road sweeping'),
+            ('Shipping_container_transport', 'Shipping container transport'),
+            ('Skip_loader', 'Skip loader'),
+            ('Sugar_cane_transport', 'Sugar cane transport'),
+            ('Swap_body_transport', 'Swap body transport'),
+            ('Temperature_controlled_transport', 'Temperature controlled transport'),
+            ('Timber_Transport', 'Timber Transport'),
+            ('Tipper', 'Tipper'),
+            ('Turntable_ladder', 'Turntable ladder'),
+            ('Vacuum_Sewer_cleaning', 'Vacuum/Sewer cleaning'),
+            ('Vehicle_transport', 'Vehicle transport'),
+            ('Volume_transport', 'Volume transport'),
+            ('Water_foam_carrier', 'Water/foam carrier'),
+            ('Wood_chip_transport', 'Wood chip transport')))
+    quantity = models.FloatField(_('quantity'))
+    delivery_place = models.CharField(_('delivery place'), max_length=256)
+    bodybuilder_crd = models.DateField(_('bodybuilder crd'))
+    agreed_delivery_date = models.DateField(_('agreed delivery date'))
+    order_security = models.FloatField(_('order security'))
+    date = models.DateField(_("date"), default=datetime.now())
+    order_stock = models.CharField(
+        max_length=5, choices=(
+            ('ORDER', 'Order'),
+            ('STOCK', 'Stock')))
+    order_no = models.CharField(_('order no'), max_length=256)
+    sport_distribution_order_id = models.CharField(_('sport/distributionOrderID'), max_length=40)
+
+    def __str__(self):
+        return self.name
 

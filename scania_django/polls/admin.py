@@ -243,3 +243,6 @@ class CustomerAdmin(ImportExportModelAdmin):
     #         db_field, request, **kwargs)
 
 
+@admin.register(models.Calculation)
+class CalculationAdmin(admin.ModelAdmin):
+    icon = '<i class="fa fa-building"></i>'
