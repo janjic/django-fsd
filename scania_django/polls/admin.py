@@ -258,3 +258,7 @@ class CalculationAdmin(admin.ModelAdmin):
         # we're done. Assumption: Page.owner is a foreignkey
         # to a User.
         return qs.filter(salesman=request.user)
+
+@admin.register(models.PreCalculation)
+class PreCalculationAdmin(admin.ModelAdmin):
+    icon = '<i class="fa fa-building"></i>'
