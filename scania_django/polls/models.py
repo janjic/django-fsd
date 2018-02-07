@@ -5,7 +5,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
-from datetime import  datetime
+from django.utils import timezone
 
 
 
@@ -247,7 +247,7 @@ class Calculation(models.Model):
     bodybuilder_crd = models.DateField(_('bodybuilder crd'))
     agreed_delivery_date = models.DateField(_('agreed delivery date'))
     order_security = models.FloatField(_('order security'))
-    date = models.DateField(_("date"), default=datetime.now())
+    date = models.DateField(_("date"), default=timezone.now())
     salesman = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, editable=False)
     order_stock = models.CharField(
         max_length=5, choices=(
