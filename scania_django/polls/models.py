@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
 
+
 @python_2_unicode_compatible
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
