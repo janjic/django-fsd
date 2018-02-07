@@ -5,7 +5,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
-from datetime import  datetime
+from datetime import datetime
+from django.utils import timezone
 
 
 @python_2_unicode_compatible
@@ -246,7 +247,7 @@ class Calculation(models.Model):
     bodybuilder_crd = models.DateField(_('bodybuilder crd'))
     agreed_delivery_date = models.DateField(_('agreed delivery date'))
     order_security = models.FloatField(_('order security'))
-    date = models.DateField(_("date"), default=datetime.now())
+    date = models.DateField(_("date"), default=timezone.now)
     salesman = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, editable=False)
     order_stock = models.CharField(
         max_length=5, choices=(
@@ -255,6 +256,36 @@ class Calculation(models.Model):
     order_no = models.CharField(_('order no'), max_length=256)
     sport_distribution_order_id = models.CharField(_('sport/distributionOrderID'), max_length=40)
 
-    def __str__(self):
-        return self.name
+
+@python_2_unicode_compatible
+class PreCalculation(models.Model):
+    calculation = models.ForeignKey(Calculation, on_delete=models.CASCADE, verbose_name=_('calculation'))
+    dil_purchase_price_sport = models.CharField(_('dil purchase price sport'), max_length=256)
+    discount_1 = models.CharField(_('discount 1'), max_length=256)
+    discount_2 = models.CharField(_('discount 2'), max_length=256)
+    extra_support = models.EmailField(_('extra support'))
+    dealer_purchase_price = models.FloatField(_('dealer purchase price'))
+    pdi = models.IntegerField(
+        choices=(
+            (5, 5),
+            (7, 7),
+            (9, 9)))
+    r_servis = models.IntegerField(
+        choices=(
+            (2, 2),
+            (10, 10),
+            (20, 20)))
+    painting = models.FloatField(_('painting'))
+    air_condition = models.FloatField(_('air condition'))
+    warranty = models.FloatField(_('warranty'))
+    trade_in = models.FloatField(_('trade in'))
+    chassis_no_trade_in = models.CharField(_('chassis no trade in'), max_length=256)
+    jacket_and_presents = models.FloatField(_('jackets & Presents'))
+    radio = models.FloatField(_('radio'))
+    tachograph = models.FloatField(_('tachograph'))
+    adaptation_rup = models.FloatField(_('adaptation RUP'))
+    estimated_tender_costs = models.FloatField(_('estimated tender costs'))
+    driver_training = models.FloatField(_('driver training'))
+    other = models.CharField(_('other'), max_length=256)
+    sales_price = models.FloatField(_('sales price'))
 
