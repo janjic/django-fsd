@@ -1,6 +1,6 @@
 ---
 
-git_repo: https://github.com/janjic/scania_django.git
+git_repo: https://github.com/janjic/scania-django.git
 
 project_name: scania_django
 application_name: scania_django

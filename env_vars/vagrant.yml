@@ -1,7 +1,7 @@
 ---
 
 # Git settings.
-setup_git_repo: no
+setup_git_repo: yes
 git_branch: master
 
 
